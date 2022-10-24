@@ -3,7 +3,11 @@
 #include <vector>
 #include "Player.h"
 #include "Rooms/Room.h"
-
+namespace Number {
+	enum m_RoomEnumLetter {
+		Clear = 'C', Enemy = 'E', Loot = 'L', Shop = 'S', Boss = 'B'
+	};
+}
 class World {
 public:
 
@@ -18,9 +22,10 @@ public:
 	enum m_RoomEnum { Clear, Enemy, Loot, Shop, Boss,
 		RoomMAX
 	};
-
+		
 private:
 
+	void NextLayer();
 
 	Player* m_PlayerPtr;
 
@@ -30,4 +35,9 @@ private:
 
 	std::vector<std::vector<RoomBase*>> m_WorldVec;
 
+
+	void PrintRoomType(char RoomType);
+
+	void CheckPlayerDeath();
+	int m_Layer = 1;
 };

@@ -1,10 +1,10 @@
 #pragma once
 #include "Room.h"
 
-ClearRoom::ClearRoom(Player* PlayerPtr)
-	:RoomBase(PlayerPtr)
+ClearRoom::ClearRoom(Player* PlayerPtr, int layer)
+	:RoomBase(PlayerPtr, layer)
 {
-	m_RoomType = "C";
+	m_RoomType = 'C';
 	//std::cout << PlayerPtr << std::endl;
 	//Wand* WandNew = new  Wand(1, 1, "Basic", 5, false);
 	//m_WandLoot.push_back(WandNew);
@@ -20,4 +20,4 @@ void ClearRoom::Main()
 {
 	std::cout << GetEnter() << std::endl;
 	
-}
+} 

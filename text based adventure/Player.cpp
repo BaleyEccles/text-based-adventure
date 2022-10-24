@@ -3,7 +3,7 @@
 Player::Player()
 {
 	// generate starting wands
-	Wand* StartingWand = new Wand(1, 1, "Basic", 5, Wand::None);
+	Wand* StartingWand = new Wand(1, 1, 1, "Basic", 5, Wand::None);
 	m_InventoryWands.push_back(StartingWand);
 }
 
@@ -55,6 +55,7 @@ void Player::PrintInventory(char Type)
 		std::cout << "In your wand slots you have..." << std::endl;
 		for (int i = 0; i < m_InventoryWands.size(); i++)
 		{
+			Globals::PrintLine(Globals::red);
 			std::cout << "Wand " << i << std::endl;
 			m_InventoryWands[i]->PrintData();
 		}
@@ -63,6 +64,7 @@ void Player::PrintInventory(char Type)
 		std::cout << "In your spell slots you have..." << std::endl;
 		for (int i = 0; i < m_InventorySpells.size(); i++)
 		{
+			Globals::PrintLine(Globals::blue);
 			std::cout << "Spell " << i << std::endl;
 			std::cout << "Type: " << m_InventorySpells[i]->Type << std::endl;
 			std::cout << "Damage: " << m_InventorySpells[i]->Damage << std::endl;
@@ -75,12 +77,14 @@ void Player::PrintInventory(char Type)
 		std::cout << "In your wand slots you have..." << std::endl;
 		for (int i = 0; i < m_InventoryWands.size(); i++)
 		{
+			Globals::PrintLine(Globals::red);
 			std::cout << "Wand " << i << std::endl;
 			m_InventoryWands[i]->PrintData();
 		}
 		std::cout << "In your spell slots you have..." << std::endl;
 		for (int i = 0; i < m_InventorySpells.size(); i++)
 		{
+			Globals::PrintLine(Globals::blue);
 			std::cout << "Spell " << i << std::endl;
 			std::cout << "Type: " << m_InventorySpells[i]->Type << std::endl;
 			std::cout << "Damage: " << m_InventorySpells[i]->Damage << std::endl;
@@ -108,7 +112,7 @@ void Player::ManageInventory()
 			DropItems();
 			break;
 		case 2:
-			SpellToWand();// TODO 
+			SpellToWand();
 			break;
 		case 3:
 			WandToSpell();// TODO 
@@ -136,11 +140,13 @@ void Player::DropItems()
 		case Wand::SPELL: case Wand::spell:
 			DropSpells();
 			break;
+		case 'c': case 'C':
+			break;
 		default:
 			std::cout << "Please input for wand: w or for spell: s" << std::endl;
 			break;
 		}
-	} while (ToDrop != Wand::SPELL && ToDrop != Wand::spell && ToDrop != Wand::WAND && ToDrop != Wand::wand);
+	} while (ToDrop != Wand::SPELL && ToDrop != Wand::spell && ToDrop != Wand::WAND && ToDrop != Wand::wand && ToDrop != 'c' && ToDrop != 'C');
 }
 
 void Player::DropWands()
@@ -149,7 +155,7 @@ void Player::DropWands()
 	bool IsValidNumber = true;
 	std::cout << "Input the number of the wand you would like to drop. (-1 to cancel)" << std::endl;
 	do {
-
+		PrintInventory(Wand::WandEnum::WAND);
 		std::cin >> NumberToDrop;
 		if (NumberToDrop != -1)
 		{
@@ -176,6 +182,7 @@ void Player::DropSpells()
 	bool IsValidNumber = true;
 	std::cout << "Input the number of the spell you would like to drop. (-1 to cancel)" << std::endl;
 	do {
+		PrintInventory(Wand::WandEnum::SPELL);
 
 		std::cin >> NumberToDrop;
 		if (NumberToDrop != -1)
@@ -197,8 +204,120 @@ void Player::DropSpells()
 
 void Player::SpellToWand()
 {
+	PrintInventory(Wand::SPELL);
+	int NumberToMove;
+	bool IsValidNumber = true;
+	int NumberToUse;
+	bool IsValidNumber2 = true;
+	do {
+		std::cout << "Which spell would you like to move? (-1 to cancel)" << std::endl;
+		std::cin >> NumberToMove;
+		if (NumberToMove != -1)
+		{
+			if (NumberToMove >= 0 && NumberToMove <= m_InventorySpells.size())
+			{
+
+				do {
+					PrintInventory(Wand::WAND);
+
+					std::cout << "Which wand would you like to move the spell to? (-1 to cancel)" << std::endl;
+
+					std::cin >> NumberToUse;
+					if (NumberToUse != -1)
+					{
+						if (NumberToUse >= 0 && NumberToUse <= m_InventoryWands.size())
+						{
+							if (m_InventoryWands[NumberToUse]->m_WandInv->Size == m_InventoryWands[NumberToUse]->m_WandInv->Spells.size())
+							{
+								std::cout << "This wand has no more spare slots, please choose a different wand." << std::endl;
+								IsValidNumber2 = false;
+							}
+							else {
+								m_InventoryWands[NumberToUse]->m_WandInv->Spells.push_back(m_InventorySpells[NumberToMove]);
+								m_InventorySpells.erase(m_InventorySpells.begin() + NumberToMove);
+								IsValidNumber2 = true;
+							}
+						}
+						else {
+							std::cout << "Which wand would you like to move the spell to? (-1 to cancel)" << std::endl;
+							IsValidNumber2 = false;
+						}
+					}
+					else {
+						IsValidNumber2 = true;
+					}
+
+				} while (!IsValidNumber2);
+
+				IsValidNumber = true;
+			}
+			else {
+				std::cout << "Input the number of spell you would like to move. (-1 to cancel)" << std::endl;
+				IsValidNumber = false;
+			}
+		}
+		else {
+			IsValidNumber = true;
+		}
+
+	} while (!IsValidNumber);
 }
 
 void Player::WandToSpell()
 {
+	PrintInventory(Wand::WAND);
+	int NumberToMove;
+	bool IsValidNumber = true;
+	int NumberToUse;
+	bool IsValidNumber2 = true;
+	do {
+		std::cout << "Which wand would you like to remove a spell from? (-1 to cancel)" << std::endl;
+		std::cin >> NumberToMove;
+		if (NumberToMove != -1)
+		{
+			if (NumberToMove >= 0 && NumberToMove <= m_InventoryWands.size())
+			{
+
+				do {
+					m_InventoryWands[NumberToMove]->PrintData();
+
+					std::cout << "Which spell would you like to remove? (-1 to cancel)" << std::endl;
+
+					std::cin >> NumberToUse;
+					if (NumberToUse != -1)
+					{
+						if (NumberToUse >= 0 && NumberToUse <= m_InventorySpells.size())
+						{
+
+							m_InventorySpells.push_back(m_InventoryWands[NumberToMove]->m_WandInv->Spells[NumberToUse]);
+							m_InventoryWands[NumberToMove]->m_WandInv->Spells.erase(m_InventoryWands[NumberToMove]->m_WandInv->Spells.begin() + NumberToUse);
+
+
+							IsValidNumber2 = true;
+							
+
+						}
+						else {
+							std::cout << "Which spell would you like to remove? (-1 to cancel)" << std::endl;
+							IsValidNumber2 = false;
+						}
+					}
+					else {
+						IsValidNumber2 = true;
+					}
+
+				} while (!IsValidNumber2);
+
+				IsValidNumber = true;
+			}
+			else {
+				std::cout << "Which wand would you like to remove a spell from? (-1 to cancel)" << std::endl;
+				IsValidNumber = false;
+			}
+		}
+		else {
+			IsValidNumber = true;
+		}
+
+	} while (!IsValidNumber);
 }

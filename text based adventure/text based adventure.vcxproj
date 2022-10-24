@@ -140,11 +140,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Enemies\BossEnemy.cpp" />
     <ClCompile Include="Enemies\EasyEnemy.cpp" />
     <ClCompile Include="Enemies\Enemies.cpp" />
+    <ClCompile Include="Enemies\HardEnemy.cpp" />
+    <ClCompile Include="Enemies\MedEnemy.cpp" />
     <ClCompile Include="Globals.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Rooms\BossRoom.cpp" />
     <ClCompile Include="Rooms\ClearRoom.cpp" />
     <ClCompile Include="Rooms\EnemyRoom.cpp" />
     <ClCompile Include="Rooms\LootRoom.cpp" />

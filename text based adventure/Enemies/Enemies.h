@@ -4,31 +4,56 @@
 
 class EnemyBase {
 public:
-	EnemyBase();
+	EnemyBase(int Layer);
 
 
 	virtual int GetDamage();
 
 	void PrintData();
-	unsigned int m_Health;
+	int m_Health;
 	int m_Damage;
 
 	bool m_IsDead = false;
 
+	int m_Fire = 0;
+	int m_Ice = 0;
+
 	enum EnemiesEnum
 	{
-		Easy, Medium,
+		Easy, Medium, Hard, Boss,
 
 		EnemyMAX
 	};
-
+	int m_Layer = 0;
 };
 
 
 class EasyEnemy : public EnemyBase {
 public:
 
-	EasyEnemy();
+	EasyEnemy(int Layer);
+	int GetDamage() override;
+
+};
+
+class MedEnemy : public EnemyBase {
+public:
+
+	MedEnemy(int Layer);
+	int GetDamage() override;
+
+};
+class HardEnemy : public EnemyBase {
+public:
+
+	HardEnemy(int Layer);
+	int GetDamage() override;
+
+};
+class BossEnemy : public EnemyBase {
+public:
+
+	BossEnemy(int Layer);
 	int GetDamage() override;
 
 };

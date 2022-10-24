@@ -7,19 +7,19 @@
 
 struct Spell
 {
-	std::string Type;
-	int Damage;
+	std::string Type = "NULL";
+	int Damage = 0;
 	int Cost = 0;
 };
 
-Spell* GenRandSpell();
+Spell* GenRandSpell(int Strenght = 1);
 
 
 struct WandData
 {
-	int Size;
-	int CoolDown;
-	int WandAtribute;
+	int Size = 0;
+	int CoolDown = 0;
+	int WandAtribute = 0;
 	std::vector<Spell*> Spells;
 
 };
@@ -32,12 +32,12 @@ class Wand
 {
 public:
 
-	Wand(int Size = 0, int CoolDown = -1, std::string Type = "", int Damage = 0, int WandAtribute = None);
+	Wand(int Strength = 1, int Size = 0, int CoolDown = -1, std::string Type = "", int Damage = 0, int WandAtribute = None);
 	//int DealDamage();
 
 	void PrintData();
 
-	WandData WandInv;
+	WandData* m_WandInv = 0;
 
 	enum WandEnum
 	{
@@ -53,14 +53,16 @@ public:
 
 	std::vector<std::string> m_WandAtributesNames;
 
-	int GetDamage();
+	int GetDamage(int Luck);
 	
 	int m_Cost = 0;
+
+	int m_CoolDownLeft = 0;
 
 private:
 
 
-	WandData GenRandomWand();
+	WandData* GenRandomWand(int Strenght = 1);
 
 
 };

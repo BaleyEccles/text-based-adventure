@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\baley.eccles.00\OneDrive - Department of Education\2022\computing 2 (game design)\Game Design\text adventure new\text based adventure\Rooms\</FILEPATH>
+      <FILENAME>Room.cpp</FILENAME>
+      <LINE>349</LINE>
+      <COLUMN>46</COLUMN>
+    </SFA>
+    <DEFECTCODE>6282</DEFECTCODE>
+    <DESCRIPTION>Incorrect operator.</DESCRIPTION>
+    <FUNCTION>RoomBase::TargetEnemy</FUNCTION>
+    <DECORATED>?TargetEnemy@RoomBase@@QEAAXAEAH0@Z</DECORATED>
+    <FUNCLINE>305</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+</DEFECTS>

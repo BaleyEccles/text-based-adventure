@@ -12,6 +12,8 @@ namespace Globals {
 
 	}
 
+
+
 	void InputNumber(int& Input)
 	{
 		bool bad = false;
@@ -26,6 +28,19 @@ namespace Globals {
 		} while (bad);
 	}
 
+
+
+	void PrintLine(int Colour)
+	{
+		Globals::ChangeColour(Colour);
+		for (int i = 0; i < 100; i++)
+		{
+			std::cout << (char)254u;
+
+		}
+		std::cout << '\n';
+		Globals::ChangeColour(Globals::white);
+	}
 
 
 }

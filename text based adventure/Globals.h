@@ -36,6 +36,7 @@ namespace Globals
 		white = 15
 	};
 	void ChangeColour(int Colour);
+	void PrintLine(int Colour = Globals::red);
 
 	void InputNumber(int& Input);
 }
